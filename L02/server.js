@@ -1,16 +1,22 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import { OpenAI} from 'openai';
+import { OpenAI } from 'openai';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from "fs";
+import dotenv from 'dotenv';
 
-// Initialize Express server
+// Define __filename and __dirname manually for ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Load environment variables from the correct .env location
+dotenv.config({ path: path.resolve(__dirname, '../workspaces/llm-updating-itself-Akombe1/.env') });
+
+// Define app **BEFORE** using it
 const app = express();
 app.use(bodyParser.json());
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 app.use(express.static(path.resolve(process.cwd(), './public')));
 
